@@ -9,7 +9,6 @@ const timerValues = timer.querySelectorAll('.value');
 startButton.setAttribute('disabled', '');
 
 let selectedDate;
-let currentDate;
 
 function convertMs(ms) {
   // Number of milliseconds per unit of time
@@ -36,9 +35,7 @@ const options = {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    currentDate = this.config.defaultDate;
-
-    if (selectedDates[0] > currentDate) {
+    if (selectedDates[0] > this.config.defaultDate) {
       startButton.removeAttribute('disabled');
       selectedDate = selectedDates[0];
     } else {
@@ -55,9 +52,11 @@ const addLeadingZero = value => {
 
 startButton.addEventListener('click', () => {
   if (selectedDate) {
-    const timeDifference = convertMs(selectedDate - currentDate);
-    console.log(timeDifference);
+    let currentDate = new Date();
+
     const timerID = setInterval(() => {
+      const timeDifference = convertMs(selectedDate - currentDate);
+
       timerValues.forEach(value => {
         if (value.hasAttribute('data-days')) {
           value.innerHTML = addLeadingZero(timeDifference.days.toString());
@@ -69,10 +68,12 @@ startButton.addEventListener('click', () => {
           value.innerHTML = addLeadingZero(timeDifference.seconds.toString());
         }
       });
-    }, 1000);
 
-    if (timeDifference <= 0) {
-      clearInterval(timerID);
-    }
+      currentDate = new Date();
+
+      if (timeDifference <= 0) {
+        clearInterval(timerID);
+      }
+    }, 1000);
   }
 });
