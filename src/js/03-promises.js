@@ -24,10 +24,11 @@ const handleFormSubmit = e => {
   const amount = Number(e.target.elements.amount.value);
 
   for (let i = 1; i <= amount; i++) {
-    delay += step;
+    const nextDelay = delay + (i - 1) * step;
 
+    console.log();
     setTimeout(() => {
-      createPromise(i, delay)
+      createPromise(i, nextDelay)
         .then(({ position, delay }) => {
           Notiflix.Notify.success(
             `✅ Fulfilled promise ${position} in ${delay}ms`
@@ -38,7 +39,7 @@ const handleFormSubmit = e => {
             `❌ Rejected promise ${position} in ${delay}ms`
           );
         });
-    }, delay);
+    }, nextDelay);
   }
 };
 
