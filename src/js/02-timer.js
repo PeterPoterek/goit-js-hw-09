@@ -76,7 +76,7 @@ startButton.addEventListener('click', () => {
 
       currentDate = new Date();
 
-      if (timeDifference <= 0) {
+      if (timeDifference.seconds <= 0) {
         clearInterval(timerID);
       }
     }
