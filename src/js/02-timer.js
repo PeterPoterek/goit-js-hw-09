@@ -72,6 +72,7 @@ startButton.addEventListener('click', () => {
           value.innerHTML = addLeadingZero(timeDifference.seconds.toString());
         }
       });
+
       currentDate = new Date();
 
       if (timeDifference <= 0) {
