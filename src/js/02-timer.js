@@ -54,7 +54,11 @@ startButton.addEventListener('click', () => {
   if (selectedDate) {
     let currentDate = new Date();
 
-    const timerID = setInterval(() => {
+    updateTimer();
+
+    const timerID = setInterval(updateTimer, 1000);
+
+    function updateTimer() {
       const timeDifference = convertMs(selectedDate - currentDate);
 
       timerValues.forEach(value => {
@@ -68,12 +72,11 @@ startButton.addEventListener('click', () => {
           value.innerHTML = addLeadingZero(timeDifference.seconds.toString());
         }
       });
-
       currentDate = new Date();
 
       if (timeDifference <= 0) {
         clearInterval(timerID);
       }
-    }, 1000);
+    }
   }
 });
